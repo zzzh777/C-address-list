@@ -1,0 +1,33 @@
+#pragma once
+
+#include <stdio.h>
+#include <string.h>
+
+//初始化全局最大变量
+#define MAX 100
+#define MAX_NAME 20
+#define MAX_SEX 10
+#define MAX_TEL 15
+#define MAX_ADDRACT 50
+
+//联系人结构体
+typedef struct PeoInfo
+{
+	char name[MAX_NAME];
+	int age;
+	char sex[MAX_SEX];
+	char tel[MAX_TEL];
+	char addract[MAX_ADDRACT];
+}PeoInfo;
+//通讯录结构体
+typedef struct contact
+{
+	PeoInfo data[100];
+	int size;
+}contact;
+//初始化通讯录
+void InitContact(contact* con);
+//增加联系人
+void AddContact(contact* con);
+//显示通讯录
+void ShowContact(contact* con);
