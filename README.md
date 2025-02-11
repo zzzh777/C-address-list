@@ -8,7 +8,7 @@
 
 1. **容量检查**  
    - 初始化时自动检测通讯录存储空间
-   - 添加联系人前进行容量满额判断（最大100条）
+   - 添加联系人前进行容量满额判断（最大100条）（修改为动态版本）
 
 2. **核心功能**  
    - 🆕 **添加联系人**  
@@ -61,12 +61,20 @@
   	char tel[MAX_TEL];
   	char addract[MAX_ADDRACT];
   }PeoInfo;
-  //通讯录结构体
-  typedef struct contact
-  {
-  	PeoInfo data[100];
-  	int size;
-  }contact;
+  //通讯录结构体-------静态版本
+//typedef struct contact
+//{
+//	PeoInfo data[100];
+//	int size;
+//}contact;
+
+//通讯录结构体-------动态版本
+typedef struct contact
+{
+	PeoInfo* data;
+	int size;
+	int capacity;
+}contact;
   
   ---
 
@@ -111,8 +119,8 @@
    - （进阶建议）可扩展文件存储功能
 
 2. **容量限制**  
-   - 系统默认最大存储 **100** 条联系人信息
-   - 修改 `#define MAX 100` 可调整容量
+   - 系统默认最大存储 **3** 条联系人信息
+   - 每次空间快满时capacity自动与size对比，自动添加2个空间
   
 ---
 
