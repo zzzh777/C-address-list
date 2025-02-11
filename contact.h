@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
+#include <stdlib.h>
 
 //初始化全局最大变量
 #define MAX 100
@@ -30,4 +32,12 @@ void InitContact(contact* con);
 //增加联系人
 void AddContact(contact* con);
 //显示通讯录
-void ShowContact(contact* con);
+void ShowContact(const contact* con);
+//删除联系人
+void DelContact(contact* con);
+//查找联系人
+void SearchContact(contact* con);
+//修改联系人
+void ModifyContact(contact* con);
+//联系人排序
+void SortContact(contact* con);
