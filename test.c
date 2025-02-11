@@ -30,15 +30,23 @@ int main()
 			AddContact(&con);
 			break;
 		case 2:
+			//删除联系人
+			DelContact(&con);
 			break;
 		case 3:
+			//查找联系人
+			SearchContact(&con);
 			break;
 		case 4:
+			//修改联系人
+			ModifyContact(&con);
 			break;
 		case 5:
 			ShowContact(&con);
 			break;
 		case 6:
+			//联系人排序
+			SortContact(&con);
 			break;
 		case 0:
 			break;
