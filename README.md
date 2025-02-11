@@ -15,15 +15,15 @@
      ```c
      void AddContact(contact* con);
      ```
-   - ❌ **删除联系人**（按姓名检索）（尚未完成）  
+   - ❌ **删除联系人**（按姓名检索）
      ```c
      void DelContact(contact* con);
      ```
-   - 🔍 **查找联系人**（支持姓名/电话双重检索）  （尚未完成）
+   - 🔍 **查找联系人**
      ```c
      void SearchContact(contact* con);
      ```
-   - ✏️ **修改联系人信息**  （尚未完成）
+   - ✏️ **修改联系人信息**  
      ```c
      void ModifyContact(contact* con);
      ```
@@ -31,7 +31,7 @@
      ```c
      void ShowContact(contact* con);
      ```
-   - 🔃 **排序功能**  （尚未完成）
+   - 🔃 **排序功能**  
      ```c
      void SortContact(contact* con));
      ```
