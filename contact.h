@@ -7,6 +7,8 @@
 
 //初始化全局最大变量
 #define MAX 100
+#define CAP_MAX 3
+#define CAP_ADD 2
 #define MAX_NAME 20
 #define MAX_SEX 10
 #define MAX_TEL 15
@@ -21,14 +23,25 @@ typedef struct PeoInfo
 	char tel[MAX_TEL];
 	char addract[MAX_ADDRACT];
 }PeoInfo;
-//通讯录结构体
+//通讯录结构体-------静态版本
+//typedef struct contact
+//{
+//	PeoInfo data[100];
+//	int size;
+//}contact;
+
+//通讯录结构体-------动态版本
 typedef struct contact
 {
-	PeoInfo data[100];
+	PeoInfo* data;
 	int size;
+	int capacity;
 }contact;
+
 //初始化通讯录
 void InitContact(contact* con);
+//销毁通讯录
+void DestroyContact(contact* con);
 //增加联系人
 void AddContact(contact* con);
 //显示通讯录

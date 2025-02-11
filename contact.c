@@ -2,38 +2,99 @@
 
 #include "contact.h"
 
+//静态版本初始化
+//void InitContact(contact* con)
+//{
+//	assert(con);
+//	con->size = 0;
+//	memset(con->data, 0, sizeof(con->data));
+//}
+
+//动态版本初始化
 void InitContact(contact* con)
 {
 	assert(con);
 	con->size = 0;
-	memset(con->data, 0, sizeof(con->data));
+	con->data = (PeoInfo*)calloc(CAP_MAX, sizeof(PeoInfo));
+	if (con->data == NULL)
+	{
+		printf("初始化失败\n");
+	}
+	con->capacity = CAP_MAX;
+}
+//销毁
+void DestroyContact(contact* con)
+{
+	assert(con);
+	free(con->data);
+	con->data = NULL;
+}
+//静态版本增加
+//void AddContact(contact* con)
+//{
+//	assert(con);
+//	//判断通讯录是否已满
+//	if (con->size == MAX)
+//	{
+//		printf("通讯录已满，无法添加\n");
+//		return;
+//	}
+//	else
+//	{
+//		printf("请输入名字：\n");
+//		scanf("%s", con->data[con->size].name);
+//		printf("请输入年龄：\n");
+//		scanf("%d", &(con->data[con->size].age));//age是变量，需要取地址
+//		printf("请输入性别：\n");
+//		scanf("%s", con->data[con->size].sex);
+//		printf("请输入电话：\n");
+//		scanf("%s", con->data[con->size].tel);
+//		printf("请输入地址：\n");
+//		scanf("%s", con->data[con->size].addract);
+//	}
+//	con->size++;
+//	printf("添加成功\n");
+//
+//}
+//动态版本增加
+void check(contact* con)
+{
+	if (con->capacity == con->size)
+	{
+		PeoInfo* ptr = (PeoInfo*)realloc(con->data, (con->capacity + CAP_ADD) * sizeof(PeoInfo));
+		if (ptr == NULL)
+		{
+			printf("增容失败\n");
+		}
+		else
+		{
+			con->data = ptr;
+			con->capacity += CAP_ADD;
+			printf("增加成功\n");
+		}
+	}
 }
 void AddContact(contact* con)
 {
 	assert(con);
-	//判断通讯录是否已满
-	if (con->size == MAX)
-	{
-		printf("通讯录已满，无法添加\n");
-		return;
-	}
-	else
-	{
-		printf("请输入名字：\n");
-		scanf("%s", con->data[con->size].name);
-		printf("请输入年龄：\n");
-		scanf("%d", &(con->data[con->size].age));//age是变量，需要取地址
-		printf("请输入性别：\n");
-		scanf("%s", con->data[con->size].sex);
-		printf("请输入电话：\n");
-		scanf("%s", con->data[con->size].tel);
-		printf("请输入地址：\n");
-		scanf("%s", con->data[con->size].addract);
-	}
+	//增容
+	check(con);
+
+	printf("请输入名字：\n");
+	scanf("%s", con->data[con->size].name);
+	printf("请输入年龄：\n");
+	scanf("%d", &(con->data[con->size].age));//age是变量，需要取地址
+	printf("请输入性别：\n");
+	scanf("%s", con->data[con->size].sex);
+	printf("请输入电话：\n");
+	scanf("%s", con->data[con->size].tel);
+	printf("请输入地址：\n");
+	scanf("%s", con->data[con->size].addract);
 	con->size++;
 	printf("添加成功\n");
 
 }
+//显示
 void ShowContact(contact* con)
 {
 	assert(con);
@@ -62,6 +123,7 @@ static int FindContact(contact* con, char name[])
 	}
 	return -1;
 }
+//删除
 void DelContact(contact* con)
 {
 	

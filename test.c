@@ -49,6 +49,7 @@ int main()
 			SortContact(&con);
 			break;
 		case 0:
+			DestroyContact(&con);
 			break;
 		default:
 			printf("输入错误请重新输入\n");
