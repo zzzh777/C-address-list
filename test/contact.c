@@ -10,7 +10,47 @@
 //	memset(con->data, 0, sizeof(con->data));
 //}
 
+void check(contact* con)
+{
+	if (con->capacity == con->size)
+	{
+		PeoInfo* ptr = (PeoInfo*)realloc(con->data, (con->capacity + CAP_ADD) * sizeof(PeoInfo));
+		if (ptr == NULL)
+		{
+			printf("增容失败\n");
+		}
+		else
+		{
+			con->data = ptr;
+			con->capacity += CAP_ADD;
+			printf("增加成功\n");
+		}
+	}
+}
 //动态版本初始化
+void LoadContact(contact* con)
+{
+	assert(con);
+	//创建
+	FILE* pRead = fopen("contact.txt", "rb");
+	if (pRead == NULL)
+	{
+		printf("%s\n", strerror(errno));
+		return 1;
+	}
+	//开始读取
+	PeoInfo tmp = { 0 };
+	while (fread(&tmp, sizeof(PeoInfo), 1, pRead) == 1)
+	{
+		check(con);
+		con->data[con->size] = tmp;
+		con->size++;
+	}
+	
+
+	fclose(pRead);
+	pRead = NULL;
+}
 void InitContact(contact* con)
 {
 	assert(con);
@@ -21,6 +61,7 @@ void InitContact(contact* con)
 		printf("初始化失败\n");
 	}
 	con->capacity = CAP_MAX;
+	LoadContact(con);
 }
 //销毁
 void DestroyContact(contact* con)
@@ -57,23 +98,7 @@ void DestroyContact(contact* con)
 //
 //}
 //动态版本增加
-void check(contact* con)
-{
-	if (con->capacity == con->size)
-	{
-		PeoInfo* ptr = (PeoInfo*)realloc(con->data, (con->capacity + CAP_ADD) * sizeof(PeoInfo));
-		if (ptr == NULL)
-		{
-			printf("增容失败\n");
-		}
-		else
-		{
-			con->data = ptr;
-			con->capacity += CAP_ADD;
-			printf("增加成功\n");
-		}
-	}
-}
+
 void AddContact(contact* con)
 {
 	assert(con);
@@ -238,4 +263,25 @@ void SortContact(contact* con)
 	default:
 		break;
 	}	
+}
+//保存通讯录
+void SaveContact(const contact* con)
+{
+	assert(con);
+	//创建文件
+	FILE* pWrite = fopen("contact.txt", "wb");
+	if (pWrite == NULL)
+	{
+		printf("%s\n", strerror(errno));
+		return 1;
+	}
+	//二进制写入
+	int i = 0;
+	for (i = 0; i < con->size; i++)
+	{
+		fwrite(con->data + i, sizeof(PeoInfo), 1, pWrite);
+	}
+	//关闭
+	fclose(pWrite);
+	pWrite = NULL;
 }

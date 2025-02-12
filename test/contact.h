@@ -4,6 +4,7 @@
 #include <string.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <errno.h>
 
 //初始化全局最大变量
 #define MAX 100
@@ -40,6 +41,8 @@ typedef struct contact
 
 //初始化通讯录
 void InitContact(contact* con);
+//加载通讯录
+void LoadContact(contact* con);
 //销毁通讯录
 void DestroyContact(contact* con);
 //增加联系人
@@ -54,3 +57,5 @@ void SearchContact(contact* con);
 void ModifyContact(contact* con);
 //联系人排序
 void SortContact(contact* con);
+//保存通讯录到文件
+void SaveContact(const contact* con);
